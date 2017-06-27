@@ -11,12 +11,15 @@ namespace TrackSystem {
             Developer developer;
             Tester tester;
             Tasks task;
-            Filler.Fill (out developer, out tester,out task, 5);
+            Filler.Fill (out developer, out tester,out task, 5); // Randomly fill dev and testers
 
-            Company company = new Company ();
-            string result = company.Describe (developer, tester);
+            Company company = Company.Instance; 
+            string scrumTeamMemebers = company.Describe (developer, tester); // Display the team 
 
-            Console.WriteLine (result);
+            Backlog backlog = new Backlog (task);
+            
+            Console.WriteLine (scrumTeamMemebers);
+            Console.WriteLine ($"Total sprint score: {backlog.SprintTotalPoints} pts");
             Console.ReadLine ();
         }
         

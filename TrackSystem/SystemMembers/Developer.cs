@@ -14,10 +14,7 @@ namespace TrackSystem {
             RandomSystemMember (sample);
         }
 
-        public void DoTask () {
+        public void DoTask () { }
 
-
-        }
-        
     }
 }

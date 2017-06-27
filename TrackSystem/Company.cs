@@ -7,24 +7,36 @@ using System.Threading.Tasks;
 namespace TrackSystem {
    public class Company : ScrumTeam{
 
-        public override string Describe (Developer developer, Tester tester) {
-            string result = base.Describe (developer, tester);
+        private static Company instance; //singleton
 
-            result += "Developers\n";
-            foreach (var item in developer.member) {
+        private Company () { }
+
+        public static Company Instance {
+            get {
+                if (instance == null) {
+                    instance = new Company ();
+                }
+                return instance;
+            }
+        }
+              
+        private string ListOfTeamMembers (Dictionary<Proficiency, List<SystemMember>> member, string description, string memberName ="Team members\n") {
+            description += "\n"+memberName +"\n";
+            foreach (var item in member) {
                 foreach (var inItem in item.Value) {
-                    result += $"{item.Key}: {inItem.Name}\n";
+                    description += $"{item.Key}: {inItem.Name}\n";
                 }
             }
-            
-            result +="\nTesters";
-            foreach (var item in tester.member) {
-                foreach (var inItem in item.Value) {
-                    result += $"{item.Key}: {inItem.Name}\n";
-                }
-            }
-            return result;
+            return description;
         }
 
+        public override string Describe (Developer developer, Tester tester) {
+            string intro = base.Describe (developer, tester);
+
+            string description = ListOfTeamMembers (developer.member, intro, "Developers");
+            description = ListOfTeamMembers (tester.member, description, "Testers");
+            
+            return description;
+        }
     }
 }

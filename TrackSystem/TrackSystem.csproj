@@ -43,6 +43,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Backlog.cs" />
     <Compile Include="Company.cs" />
     <Compile Include="Fibonacci.cs" />
     <Compile Include="Filler.cs" />
