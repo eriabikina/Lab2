@@ -43,15 +43,21 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Company.cs" />
     <Compile Include="Fibonacci.cs" />
     <Compile Include="Filler.cs" />
     <Compile Include="RandomEnum.cs" />
+    <Compile Include="ScrumTeam.cs" />
     <Compile Include="SystemMembers\Tester.cs" />
     <Compile Include="SystemMembers\Developer.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SystemMembers\SystemMember.cs" />
+    <Compile Include="Tasks\TestTask.cs" />
+    <Compile Include="Tasks\CodeReviewTask.cs" />
     <Compile Include="Tasks\SystemTask.cs" />
+    <Compile Include="Tasks\DeveleopmentTask.cs" />
+    <Compile Include="Tasks\Tasks.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

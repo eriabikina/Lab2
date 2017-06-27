@@ -10,22 +10,13 @@ namespace TrackSystem {
 
             Developer developer;
             Tester tester;
-            Filler.Fill (out developer, out tester, 5);
+            Tasks task;
+            Filler.Fill (out developer, out tester,out task, 5);
 
-            Console.WriteLine ("Developers");
-            foreach (var item in developer.member) {
-                foreach (var inItem in item.Value) {
-                    Console.WriteLine ("{0}: {1}", item.Key, inItem.Name);
-                }
-            }
+            Company company = new Company ();
+            string result = company.Describe (developer, tester);
 
-            Console.WriteLine ("\nTesters");
-            foreach (var item in tester.member) {
-                foreach (var inItem in item.Value) {
-                    Console.WriteLine ("{0}: {1}", item.Key, inItem.Name);
-                }
-            }
-
+            Console.WriteLine (result);
             Console.ReadLine ();
         }
         

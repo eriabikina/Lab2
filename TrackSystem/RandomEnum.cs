@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace TrackSystem {
-  public static class RandomEnum {
+  class RandomEnum {
 
         public static T GenerateRandomEnum<T> () where T : struct, IConvertible {
 

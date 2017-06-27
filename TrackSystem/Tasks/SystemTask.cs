@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TrackSystem.Tasks {
+namespace TrackSystem {
     public enum Priority {
         Critical,
         High,
@@ -25,7 +25,7 @@ namespace TrackSystem.Tasks {
         public Priority Priority { get; set; }
 
         public Dictionary<TaskType, List<SystemTask>> sampleTask = new Dictionary<TaskType, List<SystemTask>> ();
-        public void RandomSystemTask (int sample) {
+        public virtual  void RandomSystemTask (int sample) {
             Random random = new Random (Guid.NewGuid ().GetHashCode ());
 
             sampleTask.Add (TaskType.Development, new List<SystemTask> () { new SystemTask { Estimate = Fibonacci.FibonacciNumber (random.Next (5)), Priority = RandomEnum.GenerateRandomEnum<Priority> () } });
