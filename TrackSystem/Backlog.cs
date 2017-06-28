@@ -14,11 +14,13 @@ namespace TrackSystem {
         }
 
         public Backlog (Tasks task) {
-            foreach (var item in task.sampleTask) {
-                foreach (var inItem in item.Value) {
-                    this.SprintTotalPoints += inItem.Estimate;
+            if (task != null) {
+                foreach (var item in task.sampleTask) {
+                    foreach (var inItem in item.Value) {
+                        this.SprintTotalPoints += inItem.Estimate;
+                    }
                 }
-            }           
+            }          
         }
         
     }

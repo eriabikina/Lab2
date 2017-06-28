@@ -18,13 +18,13 @@ namespace TrackSystem {
           
        public void DoTask (Developer developer, Tasks task) {
 
-            string workResult = "=======================\n";
-            workResult += "Development progress\n";
-            workResult += "=======================\n\n";
+            string workResult = "==============================\n";
+            workResult += "Development tasks distribution\n";
+            workResult += "==============================\n\n";
             string taskDone = "";
             int num;
 
-            int limit;
+            int capacity;
                         
             List<string> remove = new List<string> ();// list of tasks to be removed once developer has solved the task
 
@@ -35,43 +35,43 @@ namespace TrackSystem {
                     taskDone = "";
                     remove.Clear ();
 
-                    switch (itemDev.Key) {// Limit of number of tasks thst a developer can handle based on his/her proficiency
+                    switch (itemDev.Key) {// Limit of number of tasks that a developer can handle based on his/her proficiency
 
                         case Proficiency.Junior:
-                            limit = 2;
+                            capacity = 2;
                             break;
                         case Proficiency.Middle:
-                            limit = 4;
+                            capacity = 4;
                             break;
                         default:
-                            limit = 3;
+                            capacity = 3;
                             break;
                     }
 
                     foreach (var itemTask in task.sampleTask) {// go through each task to see if it can be solved by one of the developers
                         foreach (var inItemTask in itemTask.Value) {
 
-                            if (inItemTask.TaskType != TaskType.Test)
+                            if (inItemTask.TaskType != TaskType.Test)// developers do only Dev and CoR tasks
                                 switch (itemDev.Key) {
 
                                     case Proficiency.Junior:
-                                        if (num < limit && inItemTask.Estimate <= 2 && (inItemTask.Priority == Priority.Low || inItemTask.Priority == Priority.Medium)) {
-                                            taskDone += $"{itemTask.Key} {inItemTask.TaskType} task closed! Est.:{inItemTask.Estimate}/Pr.:{inItemTask.Priority}\n";
+                                        if (num < capacity && inItemTask.Estimate <= 2 && (inItemTask.Priority == Priority.Low || inItemTask.Priority == Priority.Medium)) {
+                                            taskDone += $"|| {itemTask.Key} {inItemTask.TaskType} task closed! Est.:{inItemTask.Estimate}/Pr.:{inItemTask.Priority}\n";
                                             remove.Add (itemTask.Key);
                                             num++;
                                         }
 
                                         break;
                                     case Proficiency.Middle:
-                                        if (num < limit && inItemTask.Estimate <= 10 && (inItemTask.Priority == Priority.High || inItemTask.Priority == Priority.Medium)) {
-                                            taskDone += $"{itemTask.Key} {inItemTask.TaskType} task closed! Est.:{inItemTask.Estimate}/Pr.:{inItemTask.Priority}\n";
+                                        if (num < capacity && inItemTask.Estimate <= 10 && (inItemTask.Priority == Priority.High || inItemTask.Priority == Priority.Medium)) {
+                                            taskDone += $"|| {itemTask.Key} {inItemTask.TaskType} task closed! Est.:{inItemTask.Estimate}/Pr.:{inItemTask.Priority}\n";
                                             remove.Add (itemTask.Key);
                                             num++;
                                         }
                                         break;
                                     default:
-                                        if (num < limit && inItemTask.Estimate <= 40) {
-                                            taskDone += $"{itemTask.Key} {inItemTask.TaskType} task closed! Est.:{inItemTask.Estimate}/Pr.:{inItemTask.Priority}\n";
+                                        if (num < capacity && inItemTask.Estimate <= 40) {
+                                            taskDone += $"|| {itemTask.Key} {inItemTask.TaskType} task closed! Est.:{inItemTask.Estimate}/Pr.:{inItemTask.Priority}\n";
                                             remove.Add (itemTask.Key);
                                             num++;
                                         }
@@ -84,7 +84,7 @@ namespace TrackSystem {
                         task.sampleTask.Remove (key);
                     }
 
-                    workResult += $"**{inItemDev.Name} ({itemDev.Key}) solved {num} task(s)\n";
+                    workResult += $"{inItemDev.Name} ({itemDev.Key}) solved {num} task(s)\n";
                     workResult += taskDone;
                     workResult += "\n";
 

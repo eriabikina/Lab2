@@ -6,8 +6,9 @@ using System.Threading.Tasks;
 
 namespace TrackSystem {
     public delegate void SalaryTimeHandler (object sender, SalaryPaidEventArgs args);
+    public delegate void TasksFromClientHandler (object sender, TaskFromClientEventArgs args);
 
-   public class Company : ScrumTeam{
+    public class Company : ScrumTeam {
 
         private static Company instance; //singleton
 
@@ -21,9 +22,9 @@ namespace TrackSystem {
                 return instance;
             }
         }
-              
-        private string ListOfTeamMembers (Dictionary<Proficiency, List<SystemMember>> employee, string description, string employeeName ="Team member(s)\n") {
-            description += "\n"+employeeName +"\n";
+
+        private string ListOfTeamMembers (Dictionary<Proficiency, List<SystemMember>> employee, string description, string employeeName = "Team member(s)\n") {
+            description += "\n" + employeeName + "\n";
             foreach (var item in employee) {
                 foreach (var inItem in item.Value) {
                     description += $"{item.Key}: {inItem.Name}\n";
@@ -37,7 +38,7 @@ namespace TrackSystem {
 
             string description = ListOfTeamMembers (developer.employee, intro, "Developer(s)");
             description = ListOfTeamMembers (tester.employee, description, "Tester(s)");
-            
+
             return description;
         }
 
@@ -58,7 +59,21 @@ namespace TrackSystem {
                 }
                 Console.WriteLine ();
             }
-        }        
+        }
 
+        public event TasksFromClientHandler TaskFromClientArrived;
+
+        public Tasks TaskFromClient () {
+            Tasks task=null;
+            if (TaskFromClientArrived != null) {
+                TaskFromClientEventArgs args = new TaskFromClientEventArgs ();                  
+                TaskFromClientArrived (this, args);
+            }
+            return task;
+        }
     }
 }
+
+
+
+

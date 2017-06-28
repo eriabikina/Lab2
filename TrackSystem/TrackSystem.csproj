@@ -47,8 +47,10 @@
     <Compile Include="Company.cs" />
     <Compile Include="Fibonacci.cs" />
     <Compile Include="Filler.cs" />
+    <Compile Include="SystemMembers\Manager.cs" />
     <Compile Include="RandomEnum.cs" />
-    <Compile Include="SalaryPaidEvent.cs" />
+    <Compile Include="TaskFromClientEventArgs.cs" />
+    <Compile Include="SalaryPaidEventArgs.cs" />
     <Compile Include="ScrumTeam.cs" />
     <Compile Include="SystemMembers\Tester.cs" />
     <Compile Include="SystemMembers\Developer.cs" />
