@@ -26,16 +26,16 @@ namespace TrackSystem {
             return FirstNameGen.GenerateRandomFullName () + " " + LastNameGen.GenerateRandomFullName ();
         }
 
-        public Dictionary<Proficiency, List<SystemMember>> member = new Dictionary<Proficiency, List<SystemMember>> ();
+        public Dictionary<Proficiency, List<SystemMember>> employee = new Dictionary<Proficiency, List<SystemMember>> ();
         public void RandomSystemMember (int sample) {
             Random random = new Random (Guid.NewGuid ().GetHashCode ());
 
-            member.Add (Proficiency.Junior, new List<SystemMember> () { new SystemMember { Name = GenerateRandomFullName (), Salary = random.Next (1000, 5000) } });
-            member.Add (Proficiency.Middle, new List<SystemMember> () { new SystemMember { Name = GenerateRandomFullName (), Salary = random.Next (1000, 5000) } });
-            member.Add (Proficiency.Senior, new List<SystemMember> () { new SystemMember { Name = GenerateRandomFullName (), Salary = random.Next (1000, 5000) } });
+            employee.Add (Proficiency.Junior, new List<SystemMember> () { new SystemMember { Name = GenerateRandomFullName (), Salary = random.Next (1000, 5000) } });
+            employee.Add (Proficiency.Middle, new List<SystemMember> () { new SystemMember { Name = GenerateRandomFullName (), Salary = random.Next (1000, 5000) } });
+            employee.Add (Proficiency.Senior, new List<SystemMember> () { new SystemMember { Name = GenerateRandomFullName (), Salary = random.Next (1000, 5000) } });
 
             for (int i = 0; i < sample - 3; i++) {
-                member[RandomEnum.GenerateRandomEnum<Proficiency> ()].Add (new SystemMember { Name = GenerateRandomFullName (), Salary = random.Next (1000, 5000) });
+                employee[RandomEnum.GenerateRandomEnum<Proficiency> ()].Add (new SystemMember { Name = GenerateRandomFullName (), Salary = random.Next (1000, 5000) });
             }
         }
 

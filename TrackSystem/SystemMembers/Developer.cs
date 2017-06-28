@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace TrackSystem {
+    public delegate void DoTaskHandler (Developer developer, Tasks task);
 
     public class Developer : SystemMember, IGenerator<string> {
 
@@ -27,7 +28,7 @@ namespace TrackSystem {
                         
             List<string> remove = new List<string> ();// list of tasks to be removed once developer has solved the task
 
-            foreach (var itemDev in developer.member) {  // go through each developer and find a task 
+            foreach (var itemDev in developer.employee) {  // go through each developer and find a task 
                 foreach (var inItemDev in itemDev.Value) {
 
                     num = 0;

@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace TrackSystem {
+    public delegate void TestTaskHandler (Tester test, Tasks task);
     public class Tester : SystemMember, IGenerator<string> {
 
         public Tester (int sample) {
@@ -24,9 +25,9 @@ namespace TrackSystem {
 
             int limit;
 
-            List<string> remove = new List<string> ();// list of tasks to be removed once developer has solved the task
+            List<string> remove = new List<string> ();// list of tasks to be removed once tester has solved the task
 
-            foreach (var itemTest in tester.member) {  // go through each developer and find a task 
+            foreach (var itemTest in tester.employee) {  // go through each tester and find a task 
                 foreach (var inItemTest in itemTest.Value) {
 
                     num = 0;
@@ -46,7 +47,7 @@ namespace TrackSystem {
                             break;
                     }
 
-                    foreach (var itemTask in task.sampleTask) {// go through each task to see if it can be solved by one of the developers
+                    foreach (var itemTask in task.sampleTask) {// go through each task to see if it can be solved by one of the testers
                         foreach (var inItemTask in itemTask.Value) {
 
                             if (inItemTask.TaskType == TaskType.Test)
