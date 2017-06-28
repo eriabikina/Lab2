@@ -7,17 +7,19 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace TrackSystem {
+
     public class Developer : SystemMember, IGenerator<string> {
 
         public Developer (int sample) {
 
             RandomSystemMember (sample);
         }
+          
+       public void DoTask (Developer developer, Tasks task) {
 
-        public delegate void DoTaskHandler (Developer developer, Tasks task);
-        public string DoTask (Developer developer, Tasks task) {
-
-            string workResult = "\n";
+            string workResult = "=======================\n";
+            workResult += "Development progress\n";
+            workResult += "=======================\n\n";
             string taskDone = "";
             int num;
 
@@ -32,7 +34,7 @@ namespace TrackSystem {
                     taskDone = "";
                     remove.Clear ();
 
-                    switch (inItemDev.Proficiency) {// Limit of number of tasks thst a developer can handle based on his/her proficiency
+                    switch (itemDev.Key) {// Limit of number of tasks thst a developer can handle based on his/her proficiency
 
                         case Proficiency.Junior:
                             limit = 2;
@@ -49,10 +51,10 @@ namespace TrackSystem {
                         foreach (var inItemTask in itemTask.Value) {
 
                             if (inItemTask.TaskType != TaskType.Test)
-                                switch (inItemDev.Proficiency) {
+                                switch (itemDev.Key) {
 
                                     case Proficiency.Junior:
-                                        if (num <= limit && inItemTask.Estimate <= 2 && (inItemTask.Priority == Priority.Low || inItemTask.Priority == Priority.Medium)) {
+                                        if (num < limit && inItemTask.Estimate <= 2 && (inItemTask.Priority == Priority.Low || inItemTask.Priority == Priority.Medium)) {
                                             taskDone += $"{itemTask.Key} {inItemTask.TaskType} task closed! Est.:{inItemTask.Estimate}/Pr.:{inItemTask.Priority}\n";
                                             remove.Add (itemTask.Key);
                                             num++;
@@ -60,14 +62,14 @@ namespace TrackSystem {
 
                                         break;
                                     case Proficiency.Middle:
-                                        if (num <= limit && inItemTask.Estimate <= 10 && (inItemTask.Priority == Priority.High || inItemTask.Priority == Priority.Medium)) {
+                                        if (num < limit && inItemTask.Estimate <= 10 && (inItemTask.Priority == Priority.High || inItemTask.Priority == Priority.Medium)) {
                                             taskDone += $"{itemTask.Key} {inItemTask.TaskType} task closed! Est.:{inItemTask.Estimate}/Pr.:{inItemTask.Priority}\n";
                                             remove.Add (itemTask.Key);
                                             num++;
                                         }
                                         break;
                                     default:
-                                        if (num <= limit && inItemTask.Estimate <= 40) {
+                                        if (num < limit && inItemTask.Estimate <= 40) {
                                             taskDone += $"{itemTask.Key} {inItemTask.TaskType} task closed! Est.:{inItemTask.Estimate}/Pr.:{inItemTask.Priority}\n";
                                             remove.Add (itemTask.Key);
                                             num++;
@@ -83,11 +85,11 @@ namespace TrackSystem {
 
                     workResult += $"**{inItemDev.Name} ({itemDev.Key}) solved {num} task(s)\n";
                     workResult += taskDone;
-                    workResult += "------------------------------------------------\n";
+                    workResult += "\n";
 
                 }
             }
-            return workResult;
+            Console.WriteLine( workResult);
         }
     }
 }

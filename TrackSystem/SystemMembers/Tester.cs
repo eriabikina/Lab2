@@ -13,11 +13,12 @@ namespace TrackSystem {
 
             RandomSystemMember (sample);
         }
+                
+        public void TestTask (Tester tester, Tasks task) {
 
-
-        public string TestTask (Tester tester, Tasks task) {
-
-            string workResult = "\n";
+            string workResult = "=======================\n";
+            workResult += "Test progress\n";
+            workResult += "=======================\n\n";
             string taskDone = "";
             int num;
 
@@ -32,13 +33,13 @@ namespace TrackSystem {
                     taskDone = "";
                     remove.Clear ();
 
-                    switch (inItemTest.Proficiency) {// Limit of number of tasks thst a developer can handle based on his/her proficiency
+                    switch (itemTest.Key) {// Limit of number of tasks thst a developer can handle based on his/her proficiency
 
                         case Proficiency.Junior:
-                            limit = 3;
+                            limit = 2;
                             break;
                         case Proficiency.Middle:
-                            limit = 4;
+                            limit = 3;
                             break;
                         default:
                             limit = 4;
@@ -49,26 +50,26 @@ namespace TrackSystem {
                         foreach (var inItemTask in itemTask.Value) {
 
                             if (inItemTask.TaskType == TaskType.Test)
-                                switch (inItemTest.Proficiency) {
+                                switch (itemTest.Key) {
 
                                     case Proficiency.Junior:
-                                        if (num <= limit && inItemTask.Estimate <= 2 && (inItemTask.Priority == Priority.Low || inItemTask.Priority == Priority.Medium)) {
-                                            taskDone += $"{itemTask.Key} {inItemTask.TaskType} task closed! Est.:{inItemTask.Estimate}/Pr.:{inItemTask.Priority}\n";
+                                        if (num < limit && inItemTask.Estimate <= 2 && (inItemTask.Priority == Priority.Low || inItemTask.Priority == Priority.Medium)) {
+                                            taskDone += $"{itemTask.Key} {inItemTask.TaskType} task closed! Est.:{inItemTask.Estimate} /Pr.:{inItemTask.Priority}\n";
                                             remove.Add (itemTask.Key);
                                             num++;
                                         }
 
                                         break;
                                     case Proficiency.Middle:
-                                        if (num <= limit && inItemTask.Estimate <= 10 && (inItemTask.Priority == Priority.High || inItemTask.Priority == Priority.Medium)) {
-                                            taskDone += $"{itemTask.Key} {inItemTask.TaskType} task closed! Est.:{inItemTask.Estimate}/Pr.:{inItemTask.Priority}\n";
+                                        if (num < limit && inItemTask.Estimate <= 10 && (inItemTask.Priority == Priority.High || inItemTask.Priority == Priority.Medium)) {
+                                            taskDone += $"{itemTask.Key} {inItemTask.TaskType} task closed! Est.:{inItemTask.Estimate} /Pr.:{inItemTask.Priority}\n";
                                             remove.Add (itemTask.Key);
                                             num++;
                                         }
                                         break;
                                     default:
-                                        if (num <= limit && inItemTask.Estimate <= 40) {
-                                            taskDone += $"{itemTask.Key} {inItemTask.TaskType} task closed! Est.:{inItemTask.Estimate}/Pr.:{inItemTask.Priority}\n";
+                                        if (num < limit && inItemTask.Estimate <= 40) {
+                                            taskDone += $"{itemTask.Key} {inItemTask.TaskType} task closed! Est.:{inItemTask.Estimate} /Pr.:{inItemTask.Priority}\n";
                                             remove.Add (itemTask.Key);
                                             num++;
                                         }
@@ -83,11 +84,11 @@ namespace TrackSystem {
 
                     workResult += $"**{inItemTest.Name} ({itemTest.Key}) solved {num} task(s)\n";
                     workResult += taskDone;
-                    workResult += "------------------------------------------------\n";
+                    workResult += "\n";
 
                 }
             }
-            return workResult;
+            Console.WriteLine( workResult);
         }
 
     }

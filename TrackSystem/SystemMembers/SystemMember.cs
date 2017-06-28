@@ -18,9 +18,7 @@ namespace TrackSystem {
 
         public string Name { get; set; }
 
-        public int Salary { get; set; }
-
-        public Proficiency Proficiency { get; set; }
+        public int Salary { get; set; }               
 
         static readonly IGenerator<string> FirstNameGen = new FirstNameGenerator ();// found ObjectHydrator on github to generate random full names using real English names and surname
         static readonly IGenerator<string> LastNameGen = new LastNameGenerator ();
@@ -32,9 +30,9 @@ namespace TrackSystem {
         public void RandomSystemMember (int sample) {
             Random random = new Random (Guid.NewGuid ().GetHashCode ());
 
-            member.Add (Proficiency.Senior, new List<SystemMember> () { new SystemMember { Name = GenerateRandomFullName (), Salary = random.Next (1000, 5000), Proficiency = RandomEnum.GenerateRandomEnum<Proficiency> () } });
-            member.Add (Proficiency.Middle, new List<SystemMember> () { new SystemMember { Name = GenerateRandomFullName (), Salary = random.Next (1000, 5000), Proficiency = RandomEnum.GenerateRandomEnum<Proficiency> () } });
-            member.Add (Proficiency.Junior, new List<SystemMember> () { new SystemMember { Name = GenerateRandomFullName (), Salary = random.Next (1000, 5000), Proficiency = RandomEnum.GenerateRandomEnum<Proficiency> () } });
+            member.Add (Proficiency.Junior, new List<SystemMember> () { new SystemMember { Name = GenerateRandomFullName (), Salary = random.Next (1000, 5000) } });
+            member.Add (Proficiency.Middle, new List<SystemMember> () { new SystemMember { Name = GenerateRandomFullName (), Salary = random.Next (1000, 5000) } });
+            member.Add (Proficiency.Senior, new List<SystemMember> () { new SystemMember { Name = GenerateRandomFullName (), Salary = random.Next (1000, 5000) } });
 
             for (int i = 0; i < sample - 3; i++) {
                 member[RandomEnum.GenerateRandomEnum<Proficiency> ()].Add (new SystemMember { Name = GenerateRandomFullName (), Salary = random.Next (1000, 5000) });

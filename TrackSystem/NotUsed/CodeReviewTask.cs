@@ -13,10 +13,10 @@ namespace TrackSystem {
         public override void RandomSystemTask (int sample) {
             Random random = new Random (Guid.NewGuid ().GetHashCode ());
 
-            corTask.Add (TaskType.CodeReview, new List<SystemTask> () { new SystemTask { Estimate = Fibonacci.FibonacciNumber (random.Next (5)), Priority = RandomEnum.GenerateRandomEnum<Priority> () } });
+            corTask.Add (TaskType.CodeReview, new List<SystemTask> () { new SystemTask { Estimate = Fibonacci.FibonacciNumber (random.Next (1,6)), Priority = RandomEnum.GenerateRandomEnum<Priority> () } });
 
             for (int i = 0; i < sample - 3; i++) {
-                corTask[TaskType.CodeReview].Add (new SystemTask { Estimate = Fibonacci.FibonacciNumber (random.Next (5)), Priority = RandomEnum.GenerateRandomEnum<Priority> () });
+                corTask[TaskType.CodeReview].Add (new SystemTask { Estimate = Fibonacci.FibonacciNumber (random.Next (1,6)), Priority = RandomEnum.GenerateRandomEnum<Priority> () });
             }
         }
 

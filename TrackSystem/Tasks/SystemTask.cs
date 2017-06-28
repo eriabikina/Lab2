@@ -30,7 +30,7 @@ namespace TrackSystem {
         public virtual  void RandomSystemTask (int sample) {
             Random random = new Random (Guid.NewGuid ().GetHashCode ());
             for (int i = 0; i < sample; i++) {
-                sampleTask.Add ("CR" + (1000 + i).ToString (), new List<SystemTask> () { new SystemTask {TaskType=RandomEnum.GenerateRandomEnum<TaskType>(),  Estimate = Fibonacci.FibonacciNumber (random.Next (5)), Priority = RandomEnum.GenerateRandomEnum<Priority> () } });
+                sampleTask.Add ("CR" + (1000 + i).ToString (), new List<SystemTask> () { new SystemTask {TaskType=RandomEnum.GenerateRandomEnum<TaskType>(),  Estimate = Fibonacci.FibonacciNumber (random.Next (1,6)), Priority = RandomEnum.GenerateRandomEnum<Priority> () } });
             }
         }
     }

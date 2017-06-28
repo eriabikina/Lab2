@@ -5,6 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace TrackSystem {
+    public delegate void DoTaskHandler (Developer developer, Tasks task);
+    public delegate void TestTaskHandler (Tester test, Tasks task);
+
     class Program {
         static void Main (string[] args) {
 
@@ -12,7 +15,7 @@ namespace TrackSystem {
             Tester tester;
             Tasks task;
             Filler.Fill (out developer, out tester, 5); // Randomly fill dev and testers
-            Filler.Fill (out task, 15); // Randomly fill dev and testers
+            Filler.Fill (out task, 20); // Randomly fill dev and testers
 
             Company company = Company.Instance; 
             string scrumTeamMemebers = company.Describe (developer, tester); // Display the team 
@@ -20,16 +23,17 @@ namespace TrackSystem {
             Backlog backlog = new Backlog (task);
             
             Console.WriteLine (scrumTeamMemebers);
-            Console.WriteLine ($"Total sprint score: {backlog.SprintTotalPoints} pts");
+            Console.WriteLine ($"Total sprint score: {backlog.SprintTotalPoints} pts\n");
+            
+            DoTaskHandler devTask = developer.DoTask ;
+            devTask (developer, task);
 
-            Console.WriteLine ("Development progress:\n");
-            Console.WriteLine (developer.DoTask(developer,task) );
-
-            Console.WriteLine ("Test progress:\n");
-            Console.WriteLine (tester.TestTask (tester, task));
-
-            Console.ReadLine ();
+            TestTaskHandler testTask = tester.TestTask ;
+            testTask (tester, task);
+            
+            Console.Read ();
         }
         
+
     }
 }
