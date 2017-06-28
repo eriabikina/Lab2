@@ -22,18 +22,15 @@ namespace TrackSystem {
 
         public int Estimate { get; set; }
 
-        public Priority Priority { get; set; }
+        public TaskType TaskType { get; set; }
 
-        public Dictionary<TaskType, List<SystemTask>> sampleTask = new Dictionary<TaskType, List<SystemTask>> ();
+        public Priority Priority { get; set; }      
+
+        public Dictionary<string, List<SystemTask>> sampleTask = new Dictionary<string, List<SystemTask>> ();
         public virtual  void RandomSystemTask (int sample) {
             Random random = new Random (Guid.NewGuid ().GetHashCode ());
-
-            sampleTask.Add (TaskType.Development, new List<SystemTask> () { new SystemTask { Estimate = Fibonacci.FibonacciNumber (random.Next (5)), Priority = RandomEnum.GenerateRandomEnum<Priority> () } });
-            sampleTask.Add (TaskType.CodeReview, new List<SystemTask> () { new SystemTask { Estimate = Fibonacci.FibonacciNumber (random.Next (5)), Priority = RandomEnum.GenerateRandomEnum<Priority> () } });
-            sampleTask.Add (TaskType.Test, new List<SystemTask> () { new SystemTask { Estimate = Fibonacci.FibonacciNumber (random.Next (5)), Priority = RandomEnum.GenerateRandomEnum<Priority> () } });
-
-            for (int i = 0; i < sample - 3; i++) {
-                sampleTask[RandomEnum.GenerateRandomEnum<TaskType> ()].Add (new SystemTask { Estimate = Fibonacci.FibonacciNumber (random.Next (5)), Priority = RandomEnum.GenerateRandomEnum<Priority> () });
+            for (int i = 0; i < sample; i++) {
+                sampleTask.Add ("CR" + (1000 + i).ToString (), new List<SystemTask> () { new SystemTask {TaskType=RandomEnum.GenerateRandomEnum<TaskType>(),  Estimate = Fibonacci.FibonacciNumber (random.Next (5)), Priority = RandomEnum.GenerateRandomEnum<Priority> () } });
             }
         }
     }
