@@ -18,9 +18,9 @@ namespace TrackSystem {
           
        public void DoTask (Developer developer, Tasks task) {
 
-            string workResult = "==============================\n";
-            workResult += "Development tasks distribution\n";
-            workResult += "==============================\n\n";
+            string workResult = "========================\n";
+            workResult += "Development distribution\n";
+            workResult += "========================\n\n";
             string taskDone = "";
             int num;
 
@@ -84,13 +84,17 @@ namespace TrackSystem {
                         task.sampleTask.Remove (key);
                     }
 
-                    workResult += $"{inItemDev.Name} ({itemDev.Key}) solved {num} task(s)\n";
+                    inItemDev.NumberOfTasks = num;
+                    workResult += $"{inItemDev.Name} ({itemDev.Key}) solved {inItemDev.NumberOfTasks} task(s)\n";
                     workResult += taskDone;
                     workResult += "\n";
 
                 }
             }
-            Console.WriteLine( workResult);
+            Reporter.GroupDevByAmountOfTasks (developer);
+
+            Console.WriteLine( workResult);  
+                     
         }
     }
 }

@@ -8,7 +8,11 @@ namespace TrackSystem {
  public  abstract class ScrumTeam {
         
         public virtual string Describe (Developer developer, Tester tester) {
-            return "This is our scrum team\n";
+            string header= "===================\n";
+            header += "Scrum team memebers\n";
+            header += "===================\n";
+
+            return header;
         }
     }
 }

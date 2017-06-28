@@ -47,6 +47,8 @@
     <Compile Include="Company.cs" />
     <Compile Include="Fibonacci.cs" />
     <Compile Include="Filler.cs" />
+    <Compile Include="Reporter.cs" />
+    <Compile Include="Repository.cs" />
     <Compile Include="SystemMembers\Manager.cs" />
     <Compile Include="RandomEnum.cs" />
     <Compile Include="TaskFromClientEventArgs.cs" />

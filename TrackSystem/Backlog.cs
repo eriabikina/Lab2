@@ -8,20 +8,18 @@ namespace TrackSystem {
     class Backlog {
 
         public readonly int SprintTotalPoints;
-        
-        public Backlog() {
+
+        public Backlog () {
             this.SprintTotalPoints = 0;
         }
 
         public Backlog (Tasks task) {
-            if (task != null) {
-                foreach (var item in task.sampleTask) {
-                    foreach (var inItem in item.Value) {
-                        this.SprintTotalPoints += inItem.Estimate;
-                    }
+            foreach (var item in task.sampleTask) {
+                foreach (var inItem in item.Value) {
+                    this.SprintTotalPoints += inItem.Estimate;
                 }
-            }          
+            }
         }
-        
+
     }
 }

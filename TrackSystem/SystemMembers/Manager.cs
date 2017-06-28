@@ -18,14 +18,18 @@ namespace TrackSystem {
             Filler.Fill (out task, 20); // Randomly fill tasks 
 
             Backlog backlog = new Backlog (task);
-            Console.WriteLine ($"Total sprint score: {backlog.SprintTotalPoints} pts\n");// How many points does the sprint worth based on arrived tasks 
+            Console.WriteLine ("==================");
+            Console.WriteLine ("Total sprint score");
+            Console.WriteLine ("==================");
+            Console.WriteLine ($"{ backlog.SprintTotalPoints} pts\n");// How many points does the sprint worth based on arrived tasks 
 
             DoTaskHandler devTask = developer.DoTask;
             devTask (developer, task);// display development task distribution
 
             TestTaskHandler testTask = tester.TestTask;
-            testTask (tester, task); // display test task distribution
+            testTask (tester, task); // display test task distribution     
 
-        }
+        }       
+
     }
 }

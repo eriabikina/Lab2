@@ -83,7 +83,8 @@ namespace TrackSystem {
                         task.sampleTask.Remove (key);
                     }
 
-                    workResult += $"{inItemTest.Name} ({itemTest.Key}) solved {num} task(s)\n";
+                    inItemTest.NumberOfTasks = num;
+                    workResult += $"{inItemTest.Name} ({itemTest.Key}) solved {inItemTest.NumberOfTasks} task(s)\n";
                     workResult += taskDone;
                     workResult += "\n";
 

@@ -14,6 +14,10 @@ namespace TrackSystem {
 
             Filler.Fill (out developer, out tester, 5); // Randomly fill dev and testers
 
+            Reporter.ShowDevLevel (developer, Proficiency.Junior);
+            Reporter.SortTestSalary ( tester);
+            Reporter.SearchForNameStartingWithA (developer, tester);
+
             string scrumTeamMemebers = company.Describe (developer, tester); // Display scrum team members 
             Console.WriteLine (scrumTeamMemebers);
 
@@ -23,8 +27,8 @@ namespace TrackSystem {
             company.TaskFromClient ();// event: tasks from client 
 
             company.SalaryTime (tester.employee);// event: salary time
-            company.SalaryTime (developer.employee); // event: salary time
-
+            company.SalaryTime (developer.employee);// event: salary time
+            
             Console.Read ();
         }
 

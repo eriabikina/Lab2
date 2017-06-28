@@ -18,7 +18,8 @@ namespace TrackSystem {
 
         public string Name { get; set; }
 
-        public int Salary { get; set; }               
+        public int Salary { get; set; }
+        public int NumberOfTasks { get; set; }
 
         static readonly IGenerator<string> FirstNameGen = new FirstNameGenerator ();// found ObjectHydrator on github to generate random full names using real English names and surname
         static readonly IGenerator<string> LastNameGen = new LastNameGenerator ();

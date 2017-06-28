@@ -46,9 +46,9 @@ namespace TrackSystem {
 
         public void SalaryTime (Dictionary<Proficiency, List<SystemMember>> employee) {
             if (SalaryPaid != null) {
-                Console.WriteLine ("================");
-                Console.WriteLine ("Salary time!");
-                Console.WriteLine ("================");
+                Console.WriteLine ("===========");
+                Console.WriteLine ("Salary time");
+                Console.WriteLine ("===========");
                 foreach (var item in employee) {
                     foreach (var inItem in item.Value) {
                         SalaryPaidEventArgs args = new SalaryPaidEventArgs ();
