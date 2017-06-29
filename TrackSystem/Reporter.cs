@@ -79,26 +79,99 @@ namespace TrackSystem {
             Repository repository = new Repository ();
             string path = repository.BuildPath ("/Reports", "SearchForNameStartingWithA");
 
-            List<SystemMember> allList = new List<SystemMember> ();
+            List<SystemMember> allList = MergeDevTestToList (developer, tester);
 
-            foreach (var item in developer.employee) {
-                foreach (var inItem in item.Value) {
-                    allList.Add (inItem);
-                }
-            }
-            
-            foreach (var item in tester.employee) {
-                foreach (var inItem in item.Value) {
-                    allList.Add (inItem);
-                }
-            }
-                       
             using (StreamWriter stream = new StreamWriter (path)) {
                 foreach (var item in allList.Where (x => x.Name.StartsWith ("A"))) {
                     stream.WriteLine (item.Name);
                 }
             }
-          
+
+        }
+
+        public static void CompareSalary (Developer developer, Tester tester) {
+
+            Repository repository = new Repository ();
+            string path = repository.BuildPath ("/Reports", "CompareSalary");
+           
+            List<SystemMember> allList = MergeDevTestToList (developer, tester);
+            allList.Sort (); //uses customized CompareTo method
+
+            using (StreamWriter stream = new StreamWriter (path)) {
+                foreach (var element in allList) {
+                    stream.WriteLine (element.Proficiency+":\t"+element.Name+"\t"+element.Salary );
+                }
+            }
+        }
+
+        public static void CompareTask (Tasks task) {
+
+            Repository repository = new Repository ();
+            string path = repository.BuildPath ("/Reports", "CompareTask");
+           
+            List<SystemTask> allTaskList = MergeTaskToList (task);
+            
+            allTaskList.Sort (); //uses customized CompareTo method
+
+            using (StreamWriter stream = new StreamWriter (path)) {
+                foreach (var element in allTaskList) {
+                    stream.WriteLine (element.Cr + ":\t" + element.Priority + "\t" + element.Estimate);
+                }
+            }
+        }
+
+        public static void SingleTesterPerProficiency(Tester tester) {
+
+            Repository repository = new Repository ();
+            string path = repository.BuildPath ("/Reports", "SingleTesterPerProficiency");
+
+            var testList = new HashSet<SystemMember> (EmployeeProficiencyComparer.Instance);
+
+            foreach (var item in tester.employee) {
+                foreach (var inItem in item.Value) {
+                    inItem.Proficiency = item.Key;
+                    testList.Add (inItem);
+                }
+            }
+
+            using (StreamWriter stream = new StreamWriter (path)) {
+                foreach (var element in testList) {
+                    stream.WriteLine (element.Proficiency + ":\t" + element.Name + "\t" + element.Salary);
+                }
+            }
+        }
+
+        public static List<SystemMember> MergeDevTestToList (Developer developer, Tester tester) {
+            List<SystemMember> allList = new List<SystemMember> ();
+
+            foreach (var item in developer.employee) {
+                foreach (var inItem in item.Value) {
+                    inItem.Proficiency = item.Key;
+                    allList.Add (inItem);                 
+                }
+            }
+
+            foreach (var item in tester.employee) {
+                foreach (var inItem in item.Value) {
+                    inItem.Proficiency = item.Key;
+                    allList.Add (inItem);
+                }
+            }
+
+            return allList;
+        }
+
+        public static List<SystemTask> MergeTaskToList (Tasks task) {
+            List<SystemTask> allList = new List<SystemTask> ();
+
+            foreach (var item in task.sampleTask) {
+                foreach (var inItem in item.Value) {
+                    inItem.Cr = item.Key;
+                    allList.Add (inItem);
+                }
+            }            
+
+            return allList;
         }
     }
 }

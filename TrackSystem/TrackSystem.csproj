@@ -45,8 +45,10 @@
   <ItemGroup>
     <Compile Include="Backlog.cs" />
     <Compile Include="Company.cs" />
+    <Compile Include="EmployeeProficiencyComparer.cs" />
     <Compile Include="Fibonacci.cs" />
     <Compile Include="Filler.cs" />
+    <Compile Include="Proficiency.cs" />
     <Compile Include="Reporter.cs" />
     <Compile Include="Repository.cs" />
     <Compile Include="SystemMembers\Manager.cs" />

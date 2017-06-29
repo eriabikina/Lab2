@@ -17,6 +17,8 @@ namespace TrackSystem {
             Tasks task;
             Filler.Fill (out task, 20); // Randomly fill tasks 
 
+            Reporter.CompareTask (task);
+
             Backlog backlog = new Backlog (task);
             Console.WriteLine ("==================");
             Console.WriteLine ("Total sprint score");

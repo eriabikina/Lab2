@@ -14,7 +14,9 @@ namespace TrackSystem {
         public Developer (int sample) {
 
             RandomSystemMember (sample);
+            
         }
+
           
        public void DoTask (Developer developer, Tasks task) {
 
@@ -87,7 +89,7 @@ namespace TrackSystem {
                     inItemDev.NumberOfTasks = num;
                     workResult += $"{inItemDev.Name} ({itemDev.Key}) solved {inItemDev.NumberOfTasks} task(s)\n";
                     workResult += taskDone;
-                    workResult += "\n";
+                    workResult += "\n";                                       
 
                 }
             }

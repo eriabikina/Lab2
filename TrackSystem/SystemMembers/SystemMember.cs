@@ -2,6 +2,7 @@
 using Foundation.ObjectHydrator.Interfaces;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -14,12 +15,15 @@ namespace TrackSystem {
         Senior
     };
 
-    public class SystemMember {
+    public class SystemMember : IComparable<SystemMember> {
 
         public string Name { get; set; }
 
         public int Salary { get; set; }
+
         public int NumberOfTasks { get; set; }
+
+        public Proficiency Proficiency { get; set; }
 
         static readonly IGenerator<string> FirstNameGen = new FirstNameGenerator ();// found ObjectHydrator on github to generate random full names using real English names and surname
         static readonly IGenerator<string> LastNameGen = new LastNameGenerator ();
@@ -40,6 +44,14 @@ namespace TrackSystem {
             }
         }
 
+        public int CompareTo (SystemMember other) {
+            
+            if (this.Proficiency == other.Proficiency) { // sort by salary if the proficiency of both employees is the same 
+                return this.Salary.CompareTo (other.Salary);
+            }
+            
+            return this.Proficiency.CompareTo (other.Proficiency); //sort by proficiency
+        }
     }
 }
 

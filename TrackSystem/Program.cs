@@ -12,11 +12,13 @@ namespace TrackSystem {
             Developer developer;
             Tester tester;
 
-            Filler.Fill (out developer, out tester, 5); // Randomly fill dev and testers
+            Filler.Fill (out developer, out tester, 5); // Randomly fill dev and testers                                
 
             Reporter.ShowDevLevel (developer, Proficiency.Junior);
-            Reporter.SortTestSalary ( tester);
+            Reporter.SortTestSalary (tester);
             Reporter.SearchForNameStartingWithA (developer, tester);
+            Reporter.CompareSalary (developer, tester);
+            Reporter.SingleTesterPerProficiency (tester);
 
             string scrumTeamMemebers = company.Describe (developer, tester); // Display scrum team members 
             Console.WriteLine (scrumTeamMemebers);
