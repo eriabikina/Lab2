@@ -86,7 +86,6 @@ namespace TrackSystem {
                     stream.WriteLine (item.Name);
                 }
             }
-
         }
 
         public static void CompareSalary (Developer developer, Tester tester) {
@@ -157,7 +156,6 @@ namespace TrackSystem {
                     allList.Add (inItem);
                 }
             }
-
             return allList;
         }
 
