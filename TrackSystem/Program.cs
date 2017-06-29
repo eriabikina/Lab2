@@ -46,7 +46,7 @@ namespace TrackSystem {
             Task T3 = Task.Factory.StartNew (() => {
                 company.SalaryTime (InitTest.Result.employee);// event: salary time
             });
-            T3.Wait ();
+            T3.Wait (999999999);
 
             Task T4 = Task.Factory.StartNew (() => {
                 company.SalaryTime (InitDev.Result.employee);// event: salary time
@@ -55,7 +55,8 @@ namespace TrackSystem {
 
             Task[] tasks = { InitDev, InitTest, T, T2, T3, T4 };
             Task.WaitAll (tasks);
-            Console.WriteLine ($"Reports can be found at: {Environment.CurrentDirectory}/Reports...");
+            Console.WriteLine ("========================");
+            Console.WriteLine ($"Reports can be found at:\n{Environment.CurrentDirectory}/Reports...");
             Console.Read ();
         }
 
