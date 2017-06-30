@@ -60,6 +60,8 @@ namespace TrackSystem {
             Task.WaitAll (tasks);
             Console.WriteLine ("========================");
             Console.WriteLine ($"Reports can be found at:\n{Environment.CurrentDirectory}/Reports...");
+            Console.WriteLine ();
+            Console.WriteLine ("Press any key to exit...");
             Console.Read ();
         }
 
