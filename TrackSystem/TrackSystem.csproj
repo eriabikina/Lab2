@@ -48,7 +48,6 @@
     <Compile Include="EmployeeProficiencyComparer.cs" />
     <Compile Include="Fibonacci.cs" />
     <Compile Include="Filler.cs" />
-    <Compile Include="Proficiency.cs" />
     <Compile Include="Reporter.cs" />
     <Compile Include="SystemMembers\Manager.cs" />
     <Compile Include="RandomEnum.cs" />

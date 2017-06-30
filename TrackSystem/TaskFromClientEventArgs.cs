@@ -5,8 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace TrackSystem {
-  public  class TaskFromClientEventArgs : EventArgs {
-       
+  public  class TaskFromClientEventArgs : EventArgs {     
 
         
     }
