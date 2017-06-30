@@ -11,14 +11,15 @@ namespace TrackSystem {
 
     public class Developer : SystemMember, IGenerator<string> {
 
+        public Developer () { }
+
         public Developer (int sample) {
 
             RandomSystemMember (sample);
-            
-        }
 
-          
-       public void DoTask (Developer developer, Tasks task) {
+        }                
+
+        public void DoTask (Developer developer, Tasks task) {
 
             string workResult = "========================\n";
             workResult += "Development distribution\n";
@@ -27,7 +28,7 @@ namespace TrackSystem {
             int num;
 
             int capacity;
-                        
+
             List<string> remove = new List<string> ();// list of tasks to be removed once developer has solved the task
 
             foreach (var itemDev in developer.employee) {  // go through each developer and find a task 
@@ -89,14 +90,14 @@ namespace TrackSystem {
                     inItemDev.NumberOfTasks = num;
                     workResult += $"{inItemDev.Name} ({itemDev.Key}) solved {inItemDev.NumberOfTasks} task(s)\n";
                     workResult += taskDone;
-                    workResult += "\n";                                       
+                    workResult += "\n";
 
                 }
             }
             Reporter.GroupDevByAmountOfTasks (developer);
 
-            Console.WriteLine( workResult);  
-                     
+            Console.WriteLine (workResult);
+
         }
     }
 }

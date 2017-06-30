@@ -10,11 +10,13 @@ namespace TrackSystem {
     public delegate void TestTaskHandler (Tester test, Tasks task);
     public class Tester : SystemMember, IGenerator<string> {
 
+        public Tester () { }
+
         public Tester (int sample) {
 
             RandomSystemMember (sample);
         }
-                
+                       
         public void TestTask (Tester tester, Tasks task) {
 
             string workResult = "=================\n";

@@ -6,17 +6,18 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace TrackSystem {
+
     public static class Reporter {
 
-        public static void ShowDevLevel (Developer developer, Proficiency proficiency) {
 
-            Repository repository = new Repository ();
-            string path = repository.BuildPath ("/Reports", "ShowDevLevel");
+        public static void ShowDevByLevel (Developer developer, Proficiency proficiency) {
 
+            string path = BuildPath ("Reports", "ShowDevLevel");
+                       
             using (StreamWriter stream = new StreamWriter (path)) {
                 stream.WriteLine (proficiency.ToString ());
                 stream.WriteLine ("---------------------------------------");
-                foreach (var item in developer.employee.Where (x => x.Key == proficiency)) {
+                foreach (var item in DoShowDevByLevel (developer, proficiency)) {
                     foreach (var inItem in item.Value) {
                         stream.WriteLine (inItem.Name);
                     }
@@ -24,11 +25,22 @@ namespace TrackSystem {
             }
         }
 
+        public static Dictionary<Proficiency, List<SystemMember>> DoShowDevByLevel (Developer developer, Proficiency proficiency) {
+            return developer.employee.Where (x => x.Key == proficiency).ToDictionary (x => x.Key, x => x.Value);
+        }
+
         public static void SortTestSalary (Tester tester) {
 
-            Repository repository = new Repository ();
-            string path = repository.BuildPath ("/Reports", "SortTestSalary");
+            string path = BuildPath ("Reports", "SortTestSalary");                       
 
+            using (StreamWriter stream = new StreamWriter (path)) {
+                foreach (var item in DoSortTestSalary (tester)) {
+                    stream.WriteLine (item.Name + ":" + item.Salary.ToString ());
+                }
+            }
+        }
+
+        public static List<SystemMember> DoSortTestSalary (Tester tester) {
             List<SystemMember> testerList = new List<SystemMember> ();
 
             foreach (var item in tester.employee) {
@@ -36,18 +48,13 @@ namespace TrackSystem {
                     testerList.Add (inItem);
                 }
             }
-
-            using (StreamWriter stream = new StreamWriter (path)) {
-                foreach (var item in testerList.OrderBy (x => x.Salary).ToList ()) {
-                    stream.WriteLine (item.Name + ":" + item.Salary.ToString ());
-                }
-            }
+            List<SystemMember> result = testerList.OrderBy (x => x.Salary).ToList ();
+            return result;
         }
 
         public static void GroupDevByAmountOfTasks (Developer developer) {
 
-            Repository repository = new Repository ();
-            string path = repository.BuildPath ("/Reports", "GroupDevByAmountOfTasks");
+            string path = BuildPath ("Reports", "GroupDevByAmountOfTasks");
 
             List<SystemMember> devList = new List<SystemMember> ();
 
@@ -63,7 +70,7 @@ namespace TrackSystem {
                             NumberKey = eg.Key,
                             EmployeeValue = eg
                         };
-
+            
             using (StreamWriter stream = new StreamWriter (path)) {
                 foreach (var item in query) {
                     stream.WriteLine (item.NumberKey.ToString () + ":\n");
@@ -76,41 +83,42 @@ namespace TrackSystem {
 
         public static void SearchForNameStartingWithA (Developer developer, Tester tester) {
 
-            Repository repository = new Repository ();
-            string path = repository.BuildPath ("/Reports", "SearchForNameStartingWithA");
-
-            List<SystemMember> allList = MergeDevTestToList (developer, tester);
+            string path = BuildPath ("Reports", "SearchForNameStartingWithA");
 
             using (StreamWriter stream = new StreamWriter (path)) {
-                foreach (var item in allList.Where (x => x.Name.StartsWith ("A"))) {
+                foreach (var item in DoSearchForNameStartingWithA (developer, tester)) {
                     stream.WriteLine (item.Name);
                 }
             }
         }
 
+        public static List<SystemMember> DoSearchForNameStartingWithA (Developer developer, Tester tester) {
+            List<SystemMember> allList = MergeDevTestToList (developer, tester);
+            List<SystemMember> result = allList.Where (x => x.Name.StartsWith ("A")).ToList ();
+            return result;
+        }
+
         public static void CompareSalary (Developer developer, Tester tester) {
 
-            Repository repository = new Repository ();
-            string path = repository.BuildPath ("/Reports", "CompareSalary");
-           
+            string path = BuildPath ("Reports", "CompareSalary");
+
             List<SystemMember> allList = MergeDevTestToList (developer, tester);
             allList.Sort (); //uses customized CompareTo method
 
             using (StreamWriter stream = new StreamWriter (path)) {
                 foreach (var element in allList) {
-                    stream.WriteLine (element.Proficiency+":\t"+element.Name+"\t"+element.Salary );
+                    stream.WriteLine (element.Proficiency + ":\t" + element.Name + "\t" + element.Salary);
                 }
             }
         }
 
         public static void CompareTask (Tasks task) {
 
-            Repository repository = new Repository ();
-            string path = repository.BuildPath ("/Reports", "CompareTask");
-           
+            string path = BuildPath ("Reports", "CompareTask");
+
             List<SystemTask> allTaskList = MergeTaskToList (task);
-            
-            allTaskList.Sort (); //uses customized CompareTo method
+
+            allTaskList.Sort (); //uses customized CompareTo method, see SystemMember
 
             using (StreamWriter stream = new StreamWriter (path)) {
                 foreach (var element in allTaskList) {
@@ -119,10 +127,9 @@ namespace TrackSystem {
             }
         }
 
-        public static void SingleTesterPerProficiency(Tester tester) {
+        public static void SingleTesterPerProficiency (Tester tester) {
 
-            Repository repository = new Repository ();
-            string path = repository.BuildPath ("/Reports", "SingleTesterPerProficiency");
+            string path = BuildPath ("Reports", "SingleTesterPerProficiency");
 
             var testList = new HashSet<SystemMember> (EmployeeProficiencyComparer.Instance);
 
@@ -146,7 +153,7 @@ namespace TrackSystem {
             foreach (var item in developer.employee) {
                 foreach (var inItem in item.Value) {
                     inItem.Proficiency = item.Key;
-                    allList.Add (inItem);                 
+                    allList.Add (inItem);
                 }
             }
 
@@ -167,9 +174,21 @@ namespace TrackSystem {
                     inItem.Cr = item.Key;
                     allList.Add (inItem);
                 }
-            }            
+            }
 
             return allList;
+        }
+
+        public static string BuildPath (string folderName, string fileName) {
+            StringBuilder sb = new StringBuilder ();
+
+            string path = Environment.CurrentDirectory + "/" + folderName;
+            if (!Directory.Exists (path)) {
+                Directory.CreateDirectory (path);
+            }
+            sb.Append (path).Append ($"/{ fileName}.txt");
+
+            return sb.ToString ();
         }
     }
 }
