@@ -25,17 +25,16 @@ namespace TrackSystem {
             string taskDone = "";
             int num;
 
-            Func<int> junior = CalcForJunior; // Stategy pattern with variation
-            Func<int> middle = delegate () { return 3; };
-            Func<int> senior = () => 4;
-            var capacity = new CapacityCalculator ();
+            Func<int> junior, middle, senior;
+            CapacityCalculator capacity;
+            TestCapacity (out junior, out middle, out senior, out capacity);
 
-            Func<int> estimateJunior = EstimateForJunior; // Stategy pattern with variation
-            Func<int> estimateMiddle = delegate () { return 10; };
-            Func<int> estimateSenior = () => 40;
-            var estimate = new EstimateCalculator ();
+            Func<int> estimateJunior, estimateMiddle, estimateSenior;
+            EstimateCalculator estimate;
+            TestEstimate (out estimateJunior, out estimateMiddle, out estimateSenior, out estimate);
 
             List<string> remove = new List<string> ();// list of tasks to be removed once tester has solved the task
+            TaskType[] validTasks = { TaskType.Development, TaskType.CodeReview };
 
             foreach (var itemTest in tester.employee) {  // go through each tester and find a task 
                 foreach (var inItemTest in itemTest.Value) {
@@ -43,11 +42,11 @@ namespace TrackSystem {
                     num = 0;
                     taskDone = "";
                     remove.Clear ();
-                    
+
                     foreach (var itemTask in task.sampleTask) {// go through each task to see if it can be solved by one of the testers
                         foreach (var inItemTask in itemTask.Value) {
 
-                            if (inItemTask.TaskType == TaskType.Test) //testers do only Test tasks
+                            if (validTasks.Contains (inItemTask.TaskType)) //testers do only Test tasks
                                 switch (itemTest.Key) {
 
                                     case Proficiency.Junior:
@@ -87,10 +86,24 @@ namespace TrackSystem {
 
                 }
             }
-            Console.WriteLine( workResult);
+            Console.WriteLine (workResult);
         }
 
-        internal static int CalcForJunior () {
+        private static void TestEstimate (out Func<int> estimateJunior, out Func<int> estimateMiddle, out Func<int> estimateSenior, out EstimateCalculator estimate) {
+            estimateJunior = EstimateForJunior;
+            estimateMiddle = delegate () { return 10; };
+            estimateSenior = () => 40;
+            estimate = new EstimateCalculator ();
+        }
+
+        private static void TestCapacity (out Func<int> junior, out Func<int> middle, out Func<int> senior, out CapacityCalculator capacity) {
+            junior = CapacityForJunior;
+            middle = delegate () { return 3; };
+            senior = () => 4;
+            capacity = new CapacityCalculator ();
+        }
+
+        internal static int CapacityForJunior () {
             return 2;
         }
 
