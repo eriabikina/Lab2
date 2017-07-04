@@ -51,7 +51,7 @@ namespace TrackSystem {
             }
             
             return this.Proficiency.CompareTo (other.Proficiency); //sort by proficiency
-        }
+        }     
 
     }
 }

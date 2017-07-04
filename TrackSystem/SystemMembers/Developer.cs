@@ -27,7 +27,15 @@ namespace TrackSystem {
             string taskDone = "";
             int num;
 
-            int capacity;
+            Func<int> capacityJunior = CapacityForJunior; // Stategy pattern after variation
+            Func<int> capacityMiddle = delegate () { return 4; };
+            Func<int> capacitySenior = () => 3;
+            var capacity = new CapacityCalculator ();
+
+            Func<int> estimateJunior = EstimateForJunior; // Stategy pattern after variation
+            Func<int> estimateMiddle = delegate () { return 10; };
+            Func<int> estimateSenior = () => 40;
+            var estimate = new EstimateCalculator ();
 
             List<string> remove = new List<string> ();// list of tasks to be removed once developer has solved the task
 
@@ -36,20 +44,7 @@ namespace TrackSystem {
 
                     num = 0;
                     taskDone = "";
-                    remove.Clear ();
-
-                    switch (itemDev.Key) {// Limit of number of tasks that a developer can handle based on his/her proficiency
-
-                        case Proficiency.Junior:
-                            capacity = 2;
-                            break;
-                        case Proficiency.Middle:
-                            capacity = 4;
-                            break;
-                        default:
-                            capacity = 3;
-                            break;
-                    }
+                    remove.Clear ();                                      
 
                     foreach (var itemTask in task.sampleTask) {// go through each task to see if it can be solved by one of the developers
                         foreach (var inItemTask in itemTask.Value) {
@@ -58,7 +53,8 @@ namespace TrackSystem {
                                 switch (itemDev.Key) {
 
                                     case Proficiency.Junior:
-                                        if (num < capacity && inItemTask.Estimate <= 2 && (inItemTask.Priority == Priority.Low || inItemTask.Priority == Priority.Medium)) {
+
+                                        if (num < capacity.CalculateEmployeeCapacity(capacityJunior) && inItemTask.Estimate <= estimate.CalculateTaskEstimate(estimateJunior) && (inItemTask.Priority == Priority.Low || inItemTask.Priority == Priority.Medium)) {
                                             taskDone += $"|| {itemTask.Key} {inItemTask.TaskType} task closed! Est.:{inItemTask.Estimate}/Pr.:{inItemTask.Priority}\n";
                                             remove.Add (itemTask.Key);
                                             num++;
@@ -66,14 +62,14 @@ namespace TrackSystem {
 
                                         break;
                                     case Proficiency.Middle:
-                                        if (num < capacity && inItemTask.Estimate <= 10 && (inItemTask.Priority == Priority.High || inItemTask.Priority == Priority.Medium)) {
+                                        if (num < capacity.CalculateEmployeeCapacity (capacityMiddle) && inItemTask.Estimate <= estimate.CalculateTaskEstimate (estimateMiddle) && (inItemTask.Priority == Priority.High || inItemTask.Priority == Priority.Medium)) {
                                             taskDone += $"|| {itemTask.Key} {inItemTask.TaskType} task closed! Est.:{inItemTask.Estimate}/Pr.:{inItemTask.Priority}\n";
                                             remove.Add (itemTask.Key);
                                             num++;
                                         }
                                         break;
                                     default:
-                                        if (num < capacity && inItemTask.Estimate <= 40) {
+                                        if (num < capacity.CalculateEmployeeCapacity (capacitySenior) && inItemTask.Estimate <= estimate.CalculateTaskEstimate (estimateSenior)) {
                                             taskDone += $"|| {itemTask.Key} {inItemTask.TaskType} task closed! Est.:{inItemTask.Estimate}/Pr.:{inItemTask.Priority}\n";
                                             remove.Add (itemTask.Key);
                                             num++;
@@ -99,6 +95,15 @@ namespace TrackSystem {
             Console.WriteLine (workResult);
 
         }
+
+        internal static int CapacityForJunior () {
+            return 2;            
+        }
+
+        internal static int EstimateForJunior () {
+            return 2;
+        }
+
     }
 }
 
