@@ -23,7 +23,7 @@ namespace TrackSystem {
             title += ("=================\n");
 
             TaskType[] validTasks = { TaskType.Test };
-            Console.WriteLine (title+ChooseTaskToClose (tester.employee, task, validTasks));
+            Console.WriteLine (title + ChooseTaskToClose (tester.employee, task, validTasks));
         }
     }
 }

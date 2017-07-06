@@ -5,18 +5,18 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace TrackSystem {
-    class ReportFacade {        
+    class ReportFacade {
+
+        StandardTitle title;       
         Backlog backlog;
 
-
         public ReportFacade (Tasks task) {
-            var title = new StandardTitle ();
+            title = new StandardTitle ();
             backlog = new Backlog (title, task);
         }
 
-        public void CreateCompleteReport (Tasks task) {
+        public void CreateSmallTaskReport (Tasks task) {
             backlog.BacklogSummary (task);
-
             Reporter.CompareTask (task);
         }
     }

@@ -18,7 +18,7 @@ namespace TrackSystem {
             Filler.Fill (out task, 20); // Randomly fill tasks 
 
             ReportFacade facade = new ReportFacade (task);
-            facade.CreateCompleteReport(task);
+            facade.CreateSmallTaskReport(task);
 
             DoTaskHandler devTask = developer.DoTask;
             devTask (developer, task);// display development task distribution
