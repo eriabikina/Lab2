@@ -8,11 +8,11 @@ using System.Timers;
 namespace TrackSystem {
     class Program {
         static void Main (string[] args) {
-            Company company = Company.Instance;
+            Company company = Company.Instance;                       
             Manager manager = new Manager ();
             Developer developer;
             Tester tester;
-            int sample = 5;
+            int sample = 5;            
 
             Task<Developer> InitDev = Task.Factory.StartNew (() => {
                 Filler.Fill (out developer, sample); // Randomly fill dev

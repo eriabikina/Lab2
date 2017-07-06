@@ -17,14 +17,10 @@ namespace TrackSystem {
         }
 
         public void TestTask (Tester tester, Tasks task) {
-
-            string workResult = "========================\n";
-            workResult += "Test distribution\n";
-            workResult += "========================\n\n";
-
+            
             TaskType[] validTasks = { TaskType.Test };
-            workResult += AssignTasksPerEmployee (tester.employee, task, validTasks);
-            Console.WriteLine (workResult);
+
+            Console.WriteLine (ChooseTaskToClose (tester.employee, task, validTasks));
         }
     }
 }

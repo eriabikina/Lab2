@@ -8,8 +8,7 @@ using System.Threading.Tasks;
 namespace TrackSystem {
 
     public static class Reporter {
-
-
+        
         public static void ShowDevByLevel (Developer developer, Proficiency proficiency) {
 
             string path = BuildPath ("Reports", "ShowDevLevel");

@@ -17,15 +17,11 @@ namespace TrackSystem {
             RandomSystemMember (sample);
         }                
 
-        public void DoTask (Developer developer, Tasks task) {
-
-            string workResult = "========================\n";
-            workResult += "Development distribution\n";
-            workResult += "========================\n\n";
-
+        public void DoTask (Developer developer, Tasks task) {            
+                        
             TaskType[] validTasks = { TaskType.Development, TaskType.CodeReview };
-            workResult += AssignTasksPerEmployee (developer.employee, task, validTasks);
-            Console.WriteLine (workResult);
+
+            Console.WriteLine (ChooseTaskToClose (developer.employee, task, validTasks));
 
             Reporter.GroupDevByAmountOfTasks (developer);                     
         }

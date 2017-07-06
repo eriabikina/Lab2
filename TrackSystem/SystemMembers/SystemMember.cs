@@ -16,7 +16,7 @@ namespace TrackSystem {
     };
 
     public class SystemMember : IComparable<SystemMember> {
-
+       
         public string Name { get; set; }
 
         public int Salary { get; set; }
@@ -32,7 +32,7 @@ namespace TrackSystem {
         }
 
         public Dictionary<Proficiency, List<SystemMember>> employee = new Dictionary<Proficiency, List<SystemMember>> ();
-
+               
         public void RandomSystemMember (int sample) {
             Random random = new Random (Guid.NewGuid ().GetHashCode ());
 
@@ -45,7 +45,7 @@ namespace TrackSystem {
             }
         }
 
-        public string AssignTasksPerEmployee (Dictionary<Proficiency, List<SystemMember>> employee, Tasks task, TaskType[] validTasks) {
+        public virtual string ChooseTaskToClose (Dictionary<Proficiency, List<SystemMember>> employee, Tasks task, TaskType[] validTasks) {
 
             Func<int> capacityJunior, capacityMiddle, capacitySenior; //applying strategy pattern
             CapacityCalculator capacity;
