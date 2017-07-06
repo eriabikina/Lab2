@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 namespace TrackSystem {
     public delegate void DoTaskHandler (Developer developer, Tasks task);
 
-    public class Developer : SystemMember, IGenerator<string> {
+    public class Developer : SystemMember, IGenerator<string>{
 
         public Developer () { }
 
@@ -17,11 +17,14 @@ namespace TrackSystem {
             RandomSystemMember (sample);
         }                
 
-        public void DoTask (Developer developer, Tasks task) {            
-                        
-            TaskType[] validTasks = { TaskType.Development, TaskType.CodeReview };
+        public void DoTask (Developer developer, Tasks task) {
 
-            Console.WriteLine (ChooseTaskToClose (developer.employee, task, validTasks));
+            string title= ("=========================\n");
+            title += ("Development' distribution\n");
+            title += ("=========================\n");
+
+            TaskType[] validTasks = { TaskType.Development, TaskType.CodeReview };
+            Console.WriteLine (title + ChooseTaskToClose (developer.employee, task, validTasks));
 
             Reporter.GroupDevByAmountOfTasks (developer);                     
         }
@@ -31,8 +34,7 @@ namespace TrackSystem {
             capacityMiddle = delegate () { return 4; };
             capacitySenior = () => 3;
             capacity = new CapacityCalculator ();
-        }      
-
+        }
     }
 }
 

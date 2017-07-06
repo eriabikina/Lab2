@@ -124,7 +124,7 @@ namespace TrackSystem {
                     stream.WriteLine (element.Cr + ":\t" + element.Priority + "\t" + element.Estimate);
                 }
             }
-        }
+        }     
 
         public static void SingleTesterPerProficiency (Tester tester) {
 
@@ -144,7 +144,7 @@ namespace TrackSystem {
                     stream.WriteLine (element.Proficiency + ":\t" + element.Name + "\t" + element.Salary);
                 }
             }
-        }
+        }               
 
         public static List<SystemMember> MergeDevTestToList (Developer developer, Tester tester) {
             List<SystemMember> allList = new List<SystemMember> ();

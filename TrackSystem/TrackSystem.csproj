@@ -44,18 +44,19 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Backlog.cs" />
-    <Compile Include="StrategyPattern used by SystemMember\EstimateCalculator.cs" />
-    <Compile Include="StrategyPattern used by SystemMember\CapacityCalculator.cs" />
+    <Compile Include="FacadePattern\ReportFacade.cs" />
+    <Compile Include="StrategyPattern\EstimateCalculator.cs" />
+    <Compile Include="StrategyPattern\CapacityCalculator.cs" />
     <Compile Include="Company.cs" />
     <Compile Include="EmployeeProficiencyComparer.cs" />
     <Compile Include="Fibonacci.cs" />
     <Compile Include="Filler.cs" />
     <Compile Include="Reporter.cs" />
-    <Compile Include="BridgePattern used by Backlog\Title.cs" />
-    <Compile Include="BridgePattern used by Backlog\ITitle.cs" />
+    <Compile Include="BridgePattern\Title.cs" />
+    <Compile Include="BridgePattern\ITitle.cs" />
     <Compile Include="SystemMembers\Manager.cs" />
     <Compile Include="RandomEnum.cs" />
-    <Compile Include="BridgePattern used by Backlog\StandardTitle.cs" />
+    <Compile Include="BridgePattern\StandardTitle.cs" />
     <Compile Include="TaskFromClientEventArgs.cs" />
     <Compile Include="SalaryPaidEventArgs.cs" />
     <Compile Include="ScrumTeam.cs" />

@@ -10,7 +10,7 @@ namespace TrackSystem {
 
     public class Company : ScrumTeam {
 
-        private static Company instance; //singleton
+        private static Company instance; // singleton
 
         private Company () { }
 
@@ -19,10 +19,15 @@ namespace TrackSystem {
                 if (instance == null) {
                     instance = new Company ();
                 }
-                return instance;
+                return Nested.instance;
             }
         }
 
+        private class Nested {
+            static Nested () { }//gives a thread safe singleton
+            internal static readonly Company instance = new Company ();
+        }        
+        
         private string ListOfTeamMembers (Dictionary<Proficiency, List<SystemMember>> employee, string description, string employeeName = "Team member(s)\n") {
             description += "\n" + employeeName + "\n";
             foreach (var item in employee) {
@@ -70,7 +75,7 @@ namespace TrackSystem {
                 TaskFromClientArrived (this, args);
             }
             return task;
-        }
+        }     
     }
 }
 
